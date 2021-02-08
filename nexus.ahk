@@ -6,14 +6,19 @@
 ;@Ahk2Exe-SetName Nexus Embedded Editor Launcher
 ;@Ahk2Exe-SetDescription Launcher for Nexus Embedded Editor
 
-;; Config ;;
+;; Default Config ;;
+	; Whether or not Vanilla Studio should be displayed when the launcher is opened
+	; This is disabled by default since Vanilla Studio is rather bulky and flashes the task bar when its done loading
+	; I personally find this very annoying, and RSMM is near instant since it doesn't actually load studio until you tell it to
+	global IntrusiveStudioLaunchMode := false
+
 	; Whether or not studio should be linked to the launcher
 	global StudioLinked := true
 	; Keeps the window on top of the script editor view
 	global KeepOnTop := true
 	; If the Nexus Embedded Editor server closes, reopen it instead of quitting
 	global PersistentServer := true
-;; ;;;;;; ;;
+;; ;;;;;;;;;;;;;; ;;
 
 #WinActivateForce ; Helps with taskbar flash issues
 #SingleInstance Force ; Make sure we don't run more than one instance of the launcher
@@ -162,7 +167,7 @@ StartStudio(itemName:=false) {
 	instrusiveLaunchMode := true
 	if (!itemName) { ; Not inside of the tray callback, meaning its automatic startup, so don't be intrusive
 		; Basically all this does is prevent vanilla studio from showing up, since RSMM is far less bulky
-		intrusiveLaunchMode := false
+		intrusiveLaunchMode := IntrusiveStudioLaunchMode
 	}
 
 	if (!WinExist("ahk_exe RobloxStudioBeta.exe")) {
@@ -328,6 +333,7 @@ SetTimer, Main, -1
 				loop {
 					if (release >= 5) {
 						; Release the loop after 5 ms
+						; This gives the loop 5 ms to move VSCode back to its original position
 						break
 					}
 
@@ -335,14 +341,9 @@ SetTimer, Main, -1
 					WinGetPos, x2, y2, w2, h2, ahk_id %win%
 					if (x != x2 || y != y2 || w != w2 || h != h2) {
 						; Window was dragged
-						; Get how much the window moved
-						dx := x2 - x
-						dy := y2 - y
 						; Release the button to stop dragging
 						Click, Up
-						; Move the mouse back
-						MouseMove, lx + dx, ly + dx, 0
-						; Move the window back
+						; Move the window back to its original position
 						WinMove, ahk_id %win%, , x, y, w, h
 						dragged := true ; Mark that the window was dragged
 					}
