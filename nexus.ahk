@@ -115,7 +115,7 @@ RestartNexusServer() {
 
 	Run, NexusEmbeddedVSCode.exe, %projectPath%, Hide UseErrorLevel
 	if (ErrorLevel) {
-		MsgBox, "Couldn't find Nexus Embedded Editor (NexusEmbeddedVSCode.exe)"
+		MsgBox, Couldn't find Nexus Embedded Editor (NexusEmbeddedVSCode.exe)
 		ExitApp
 	}
 
@@ -149,7 +149,7 @@ StartStudio() {
 		if (ErrorLevel) {
 			Run, "%LocalAppdata%\Roblox\Versions\RobloxStudioLauncherBeta.exe", , UseErrorLevel
 			if (ErrorLevel) {
-				MsgBox, "Couldn't locate Roblox Studio Mod Manager and vanilla Roblox Studio is not installed"
+				MsgBox, Couldn't locate Roblox Studio Mod Manager and vanilla Roblox Studio is not installed
 				ExitApp
 			}
 		}
