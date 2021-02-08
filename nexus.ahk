@@ -4,7 +4,7 @@
 ;@Ahk2Exe-SetMainIcon nexus.ico
 ;@Ahk2Exe-SetCopyright Hexcede
 ;@Ahk2Exe-SetName Nexus Embedded Editor Launcher
-;@Ahk2Exe-SetDescription A special launcher for Nexus Embedded Editor using AutoHotKey
+;@Ahk2Exe-SetDescription Launcher for Nexus Embedded Editor
 
 ;; Config ;;
 	; Whether or not studio should be linked to the launcher
